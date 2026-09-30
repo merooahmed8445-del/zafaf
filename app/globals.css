@@ -1,26 +1,180 @@
 @import "tailwindcss";
 
+/* =====================================================
+   Design Tokens — Zafaf Brand
+   ===================================================== */
+@theme {
+  /* ألوان Maroon (الخلفية الرئيسية) */
+  --color-maroon-50: #fdf3f5;
+  --color-maroon-100: #fbe4e8;
+  --color-maroon-200: #f7cad3;
+  --color-maroon-300: #f19bab;
+  --color-maroon-400: #e8687d;
+  --color-maroon-500: #d94356;
+  --color-maroon-600: #b82940;
+  --color-maroon-700: #991730;
+  --color-maroon-800: #7a1225;
+  --color-maroon-900: #5e0d1c;
+  --color-maroon-950: #2b040c;
+
+  /* ألوان Gold (الذهبي الفخم) */
+  --color-gold-50: #fdf9ed;
+  --color-gold-100: #fcf7e6;
+  --color-gold-200: #f7ecc4;
+  --color-gold-300: #efdc98;
+  --color-gold-400: #dfbe5d;
+  --color-gold-500: #c69d2c;
+  --color-gold-600: #a37b19;
+  --color-gold-700: #7c5a0e;
+  --color-gold-800: #5e430a;
+  --color-gold-900: #3f2d06;
+
+  /* ألوان Parchment (للخلفيات الفاتحة) */
+  --color-parchment-50: #fcfaf5;
+  --color-parchment-100: #f8f4ec;
+  --color-parchment-200: #ede4d4;
+  --color-parchment-300: #ded1bb;
+
+  /* الخطوط */
+  --font-arabic: var(--font-cairo), sans-serif;
+  --font-display: var(--font-amiri), serif;
+
+  /* الظلال */
+  --shadow-gold-glow: 0 0 30px rgba(223, 190, 93, 0.45);
+  --shadow-card-luxury: 0 20px 50px -10px rgba(43, 4, 12, 0.28), 0 0 0 1px rgba(198, 157, 44, 0.25);
+}
+
+/* =====================================================
+   Base Styles
+   ===================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fcfaf5;
+  --foreground: #2b040c;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-arabic);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =====================================================
+   Custom Scrollbar
+   ===================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8f4ec;
+}
+::-webkit-scrollbar-thumb {
+  background: #c69d2c;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a37b19;
+}
+
+/* =====================================================
+   Animations
+   ===================================================== */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* =====================================================
+   Utility Classes
+   ===================================================== */
+.gradient-maroon {
+  background: linear-gradient(135deg, #2b040c 0%, #5e0d1c 50%, #7a1225 100%);
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #c69d2c 0%, #dfbe5d 50%, #efdc98 100%);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #c69d2c 0%, #dfbe5d 50%, #efdc98 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =====================================================
+   Invitation Animations
+   ===================================================== */
+@keyframes seal-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 22px rgba(212, 175, 55, 0.4),
+                inset 0 2px 4px rgba(255,255,255,0.4),
+                inset 0 -3px 6px rgba(0,0,0,0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 45px rgba(247, 236, 196, 0.75),
+                inset 0 3px 5px rgba(255,255,255,0.6),
+                inset 0 -3px 7px rgba(0,0,0,0.8);
+  }
+}
+
+@keyframes golden-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+  45% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.8);
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
